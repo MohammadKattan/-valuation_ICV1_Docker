@@ -1,0 +1,15 @@
+version: '3'
+services:
+  planner:
+    build:
+      context : ./planner # Spécifiez le chemin vers votre première application
+      dockerfile: Dockerfile_planner
+    ports:
+      - "3000:3000" # Mappez le port de l'application 1
+
+  worker:
+    build:
+      context: ./worker # Spécifiez le chemin vers votre deuxième application
+      dockerfile: Dockerfile_worker
+    ports:
+      - "8080:8080" # Mappez le port de l'application 2
