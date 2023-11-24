@@ -12,12 +12,22 @@ const args = () => ({ a: randInt(0, 40), b: randInt(0, 40) })
 const generateTasks = (i) =>
   new Array(i).fill(1).map((_) => ({ type: taskType(), args: args() }))
 
-let workers =
-  [
-    { url: 'http://worker:8080', id: 'worker1', type: 'mult' },
-    { url: 'http://worker:8070', id: 'worker2', type: 'add' },
-  ]
+// let workers =
+//   [
+//     { url: 'http://worker:8080', id: 'worker1', type: 'mult' },
+//     { url: 'http://worker:8070', id: 'worker2', type: 'add' },
+//   ]
+let workers = []
+for (let i = 0; i <10; i++) {
+    const workerType = Math.random() < 0.5 ? 'add' : 'mult';
 
+    const worker = {
+      url: `http://worker${i}:${i +8080}`,
+      id: i.toString(),
+      type: workerType,
+    };
+    workers.push(worker); 
+  }
 let multWorkers = workers.filter((w) => w.type == 'mult');
 let addWorkers = workers.filter((w) => w.type == 'add');
 
