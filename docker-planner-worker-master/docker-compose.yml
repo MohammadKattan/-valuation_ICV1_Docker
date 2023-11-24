@@ -6,10 +6,18 @@ services:
       dockerfile: Dockerfile_planner
     ports:
       - "3000:3000" # Mappez le port de l'application 1
-
+    networks:
+      - js-network
   worker:
     build:
       context: ./worker # Spécifiez le chemin vers votre deuxième application
       dockerfile: Dockerfile_worker
+    # deploy:
+    #   replicas: 3 
+    networks:
+      - js-network
     ports:
       - "8080:8080" # Mappez le port de l'application 2
+networks:
+  js-network:
+    driver: bridge
